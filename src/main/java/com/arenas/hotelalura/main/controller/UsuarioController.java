@@ -14,18 +14,16 @@ public class UsuarioController {
     UsuarioDAO userDao = new UsuarioDaoJDBC();
 
 //    los datos estan llegando de manera sastifactoria
-    public int datos(String usuario, String pass) {
+    public boolean datos(String usuario, String pass) {
         try {
             if (userDao.login(usuario, pass) == null) {
-                return 0;
-            } else {                
-                return 1;
+                return true;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error al validar los datos, por favor contactar con Soporte..."
+            JOptionPane.showMessageDialog(null, "Ocurrio un error al validar los datos, por favor contactar con Soporte."
                     + "error: " +ex.getMessage());
         }
-        return 0;
+        return false;
     }
 
 }

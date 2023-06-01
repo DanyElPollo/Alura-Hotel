@@ -244,12 +244,12 @@ public class Login extends JFrame implements KeyListener {
 
     private void Login() {
         usuario = new UsuarioController();
-        if (usuario.datos(txtUsuario.getText(), String.valueOf(txtContrasena.getPassword())) == 0) {
-            JOptionPane.showMessageDialog(null, "Usuario o Contraseña no válidos");
-        } else {
+        if (usuario.datos(txtUsuario.getText(), String.valueOf(txtContrasena.getPassword()))) {
             MenuUsuario menu = new MenuUsuario();
             menu.setVisible(true);
             dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o Contraseña no válidos");
         }
 
     }

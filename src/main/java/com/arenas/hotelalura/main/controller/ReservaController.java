@@ -61,4 +61,18 @@ public class ReservaController implements Editable {
     public void eliminarRegistro(int id) throws SQLException {
         reserva.delete(id);
     }
+    
+    public Object[] buscarReserva(List<Integer> codigo) {
+        Object[] rowDatos = null;
+        try {
+            for (int id : codigo) {
+                ReservaDTO res = reserva.selectByHuesped(id);
+                Object[] row = {res.getId(), res.getFechaEntrada(), res.getFechaSalida(), res.getFormaPago(), res.getValor()};
+                rowDatos = row;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al filtrar: " + ex.getMessage());
+        }
+        return rowDatos;
+    }
 }

@@ -3,42 +3,16 @@ package com.arenas.hotelalura.main.views;
 import com.arenas.hotelalura.datos.interfaces.Editable;
 import com.arenas.hotelalura.main.controller.HuespedController;
 import com.arenas.hotelalura.main.controller.ReservaController;
-import com.arenas.hotelalura.main.domain.HuespedDTO;
-import com.arenas.hotelalura.main.domain.ReservaDTO;
 import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.ImageIcon;
-import java.awt.Color;
-import java.awt.SystemColor;
-import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.awt.event.ActionEvent;
-import javax.swing.JTabbedPane;
-import java.awt.Toolkit;
-import javax.swing.SwingConstants;
-import javax.swing.JSeparator;
-import javax.swing.ListSelectionModel;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.PatternSyntaxException;
-import javax.swing.JOptionPane;
-import javax.swing.RowFilter;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.border.EmptyBorder;
+import javax.swing.event.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
 @SuppressWarnings("serial")
@@ -113,7 +87,7 @@ public class Busqueda extends JFrame {
         tbHuespedes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tbHuespedes.setFont(new Font("Roboto", Font.PLAIN, 16));
 
-        modeloHuesped = new DefaultTableModel(){
+        modeloHuesped = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 // Deshabilitar edición en la columna 1 (índice 0)
@@ -270,6 +244,7 @@ public class Busqueda extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 if (!txtBuscar.getText().isEmpty()) {
                     String textoBusqueda = txtBuscar.getText();
+                    resetearFilas(modelo);
 
                     // Crear un TableRowSorter para la JTable
                     TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(modeloHuesped);
@@ -279,6 +254,13 @@ public class Busqueda extends JFrame {
                         // Establecer el filtro para el TableRowSorter basado en el texto de búsqueda
                         RowFilter<DefaultTableModel, Object> filtro = RowFilter.regexFilter(textoBusqueda, 2, 6); // Filtrar por columna 1 (nombre) y columna 2 (apellido)
                         sorter.setRowFilter(filtro);
+
+                        int rowCount = tbHuespedes.getRowCount();
+                        ArrayList<Integer> digitosArray = new ArrayList<>();
+                        for (int i = 0; i < rowCount; i++) {
+                            digitosArray.add((Integer) tbHuespedes.getValueAt(i, 6)); // Obtener el valor del índice 6                
+                            modelo.addRow(r.buscarReserva(digitosArray));
+                        }
                     } catch (PatternSyntaxException ex) {
                         JOptionPane.showMessageDialog(null, "Error en el patrón de búsqueda.");
                     }
