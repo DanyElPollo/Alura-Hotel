@@ -54,7 +54,7 @@ public class Busqueda extends JFrame {
     private JLabel labelExit;
     int xMouse, yMouse;
     private int id = 0;
-    private int tablaSeleccionada = 1;
+    private int tablaSeleccionada = 0;
     private ReservaController r = new ReservaController();
     private HuespedController h = new HuespedController();
 
@@ -113,7 +113,13 @@ public class Busqueda extends JFrame {
         tbHuespedes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tbHuespedes.setFont(new Font("Roboto", Font.PLAIN, 16));
 
-        modeloHuesped = new DefaultTableModel();
+        modeloHuesped = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Deshabilitar edición en la columna 1 (índice 0)
+                return column != 6;
+            }
+        };
         modeloHuesped.addColumn("Id");
         modeloHuesped.addColumn("Nombre");
         modeloHuesped.addColumn("Apellido");
@@ -130,7 +136,13 @@ public class Busqueda extends JFrame {
         tbReservas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tbReservas.setFont(new Font("Roboto", Font.PLAIN, 16));
 
-        modelo = new DefaultTableModel();
+        modelo = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                // Deshabilitar edición en la columna 1 (índice 0)
+                return column != 0;
+            }
+        };
         modelo.addColumn("Id Reserva");
         modelo.addColumn("Check In");
         modelo.addColumn("Check Out");

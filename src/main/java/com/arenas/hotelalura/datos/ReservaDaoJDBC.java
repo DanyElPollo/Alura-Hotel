@@ -23,23 +23,23 @@ public class ReservaDaoJDBC implements ReservaDAO {
 
     @Override
     public int insert(Connection conn, ReservaDTO reserva) throws SQLException {
-        smtm = conn.prepareStatement(SQL_INSERT,PreparedStatement.RETURN_GENERATED_KEYS);
+        smtm = conn.prepareStatement(SQL_INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
         smtm.setDate(1, Date.valueOf(reserva.getFechaEntrada().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
         smtm.setDate(2, Date.valueOf(reserva.getFechaSalida().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))));
         smtm.setInt(3, reserva.getValor());
         smtm.setString(4, reserva.getFormaPago());
         smtm.executeUpdate();
         rs = smtm.getGeneratedKeys();
-        while(rs.next()){
-            reserva.setId( rs.getInt(1));
+        while (rs.next()) {
+            reserva.setId(rs.getInt(1));
         }
         close(smtm);
         return reserva.getId();
     }
-    
+
     @Override
     public ReservaDTO selectByHuesped(int campo) throws SQLException {
-            ReservaDTO reser = null;
+        ReservaDTO reser = null;
         try {
             conn = getConnection();
             smtm = conn.prepareStatement(SQL_SEARCH);
@@ -73,6 +73,7 @@ public class ReservaDaoJDBC implements ReservaDAO {
                 LocalDate fechaSalida = rs.getTimestamp("rese_fechaSalida").toLocalDateTime().toLocalDate();
                 ReservaDTO reser = new ReservaDTO(rs.getInt("rese_id"), fechaEntrada, fechaSalida, rs.getInt("rese_valor"), rs.getString("rese_medioPago"));
                 reservas.add(reser);
+                System.out.println("reser: " + reser);
             }
         } catch (Exception e) {
             System.out.println("e = " + e.getMessage());
@@ -107,7 +108,7 @@ public class ReservaDaoJDBC implements ReservaDAO {
     @Override
     public boolean delete(int idReserva) throws SQLException {
         boolean registro;
-        try(Connection conn = getConnection(); PreparedStatement smtm = conn.prepareStatement(SQL_DELETE);){
+        try ( Connection conn = getConnection();  PreparedStatement smtm = conn.prepareStatement(SQL_DELETE);) {
             smtm.setInt(1, idReserva);
             registro = (smtm.executeUpdate() > 0);
         }

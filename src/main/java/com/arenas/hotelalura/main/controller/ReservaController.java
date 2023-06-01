@@ -29,6 +29,7 @@ public class ReservaController implements Editable {
 
     public DefaultTableModel reservas(DefaultTableModel m) throws SQLException {
         for (ReservaDTO r : reserva.select()) {
+            System.out.println("r = " + r);
             Object[] rowDatos = {r.getId(), r.getFechaEntrada(), r.getFechaSalida(), r.getFormaPago(), r.getValor()};
             m.addRow(rowDatos);
         }
@@ -42,8 +43,8 @@ public class ReservaController implements Editable {
         }
         
         int id = Integer.parseInt(s[0].toString());
-        LocalDate check_in = (LocalDate) s[1];
-        LocalDate check_out = (LocalDate) s[2];
+        LocalDate check_in = LocalDate.parse(s[1].toString());
+        LocalDate check_out = LocalDate.parse(s[2].toString());
         String pago = (String) s[3];
         int Total = Integer.parseInt(s[4].toString());
         
