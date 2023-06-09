@@ -270,7 +270,6 @@ public class Busqueda extends JFrame {
             }
         });
 
-        System.out.println(tbReservas.getSelectedRow());
         btnbuscar.setLayout(null);
         btnbuscar.setBackground(new Color(12, 138, 199));
         btnbuscar.setBounds(748, 125, 122, 35);
@@ -318,7 +317,6 @@ public class Busqueda extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 if (tablaSeleccionada == 1) {
                     id = tbReservas.getSelectedRow();
-                    System.out.println(id);
                     if (id >= 0) {
                         if (JOptionPane.showConfirmDialog(null, "Quieres Eliminar el registro con numero: " + tbReservas.getValueAt(id, 0)) == 0) {
                             try {
@@ -337,7 +335,6 @@ public class Busqueda extends JFrame {
                     }
                 } else {
                     id = tbHuespedes.getSelectedRow();
-                    System.out.println(id);
                     if (id >= 0) {
                         if (JOptionPane.showConfirmDialog(null, "Quieres Eliminar el registro con numero: " + tbHuespedes.getValueAt(id, 0)) == 0) {
                             if (h.eliminar((int) tbHuespedes.getValueAt(id, 0))) {

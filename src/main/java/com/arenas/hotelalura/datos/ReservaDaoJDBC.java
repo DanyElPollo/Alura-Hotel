@@ -73,7 +73,6 @@ public class ReservaDaoJDBC implements ReservaDAO {
                 LocalDate fechaSalida = rs.getTimestamp("rese_fechaSalida").toLocalDateTime().toLocalDate();
                 ReservaDTO reser = new ReservaDTO(rs.getInt("rese_id"), fechaEntrada, fechaSalida, rs.getInt("rese_valor"), rs.getString("rese_medioPago"));
                 reservas.add(reser);
-                System.out.println("reser: " + reser);
             }
         } catch (Exception e) {
             System.out.println("e = " + e.getMessage());

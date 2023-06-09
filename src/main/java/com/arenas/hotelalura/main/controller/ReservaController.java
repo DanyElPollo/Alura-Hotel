@@ -29,7 +29,6 @@ public class ReservaController implements Editable {
 
     public DefaultTableModel reservas(DefaultTableModel m) throws SQLException {
         for (ReservaDTO r : reserva.select()) {
-            System.out.println("r = " + r);
             Object[] rowDatos = {r.getId(), r.getFechaEntrada(), r.getFechaSalida(), r.getFormaPago(), r.getValor()};
             m.addRow(rowDatos);
         }

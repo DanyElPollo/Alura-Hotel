@@ -16,7 +16,7 @@ public class UsuarioController {
 //    los datos estan llegando de manera sastifactoria
     public boolean datos(String usuario, String pass) {
         try {
-            if (userDao.login(usuario, pass) == null) {
+            if (userDao.login(usuario, pass) != null) {
                 return true;
             }
         } catch (SQLException ex) {

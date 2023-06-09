@@ -29,6 +29,7 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -290,7 +291,7 @@ public class ReservasView extends JFrame {
         txtValor.setBackground(SystemColor.text);
         txtValor.setHorizontalAlignment(SwingConstants.CENTER);
         txtValor.setForeground(Color.BLACK);
-        txtValor.setBounds(78, 328, 43, 33);
+        txtValor.setBounds(80, 328, 100, 33);
         txtValor.setEditable(false);
         txtValor.setFont(new Font("Roboto Black", Font.BOLD, 17));
         txtValor.setBorder(javax.swing.BorderFactory.createEmptyBorder());
@@ -329,7 +330,7 @@ public class ReservasView extends JFrame {
                 }
             }
         });
-        
+
         JLabel labelSiguiente = new JLabel("SIGUIENTE");
         labelSiguiente.setHorizontalAlignment(SwingConstants.CENTER);
         labelSiguiente.setForeground(Color.WHITE);

@@ -61,7 +61,6 @@ public class HuespedController implements Editable{
         int id = (int) datosHuesped[0];
         String nombre = (String) datosHuesped[1];
         String apellido = (String) datosHuesped[2];
-        System.out.println("Apellido" + apellido);
         long telefono = (long) datosHuesped[5];
         LocalDate fechaNacimiento = (LocalDate) datosHuesped[3];
         String nacionalidad = (String) datosHuesped[4];
